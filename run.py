@@ -1,10 +1,9 @@
-from model import Model_Request,Model_Respone
+from model import Model_Request,Model_Respone #데이터 형식 모델 정의
 from bs4 import BeautifulSoup as bs #웹크로링 라이브러리
 from fastapi import FastAPI,Request,Header #FAST API 라이브러리 
 from fastapi.responses import JSONResponse
 from datetime import datetime #현재시간 가져오기
 import uvicorn # ASGI(Asynchronous Server Gateway Interface) 비동기 처리 라이브러리
-import requests # 웹사이트 요청 하기 위한 라이브러리
 import urllib 
 from urllib.request import Request as r, urlopen
 
@@ -26,9 +25,6 @@ async def TodayFortune(unsae:Model_Request,req:Request,dte:str=Header(..., descr
             beltstar = body['beltstar']
             ddi="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query="+urllib.parse.quote(beltstar + "띠+운세", encoding='utf-8')
 
-            print(ddi)
-            #네이버 운세 웹크롤링
-            #html = requests.get(ddi,headers={"User-Agent": "Mozilla/5.0"})
             req = r(
                 url=ddi, 
                 headers={'User-Agent': 'Mozilla/5.0'}
