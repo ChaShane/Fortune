@@ -24,8 +24,10 @@ async def TodayFortune(unsae:Model_Request,req:Request,dte:str=Header(..., descr
             body = await req.json()
             beltstar = body['beltstar']
             
+            print('https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query='+urllib.parse.quote(beltstar+"띠+운세"))
             #네이버 운세 웹크롤링
             html = requests.get('https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query='+urllib.parse.quote(beltstar+"띠+운세"))
+            
             soup = bs(html.text, 'html.parser')
             data1 = soup.select('div.api_cs_wrap > div#yearFortune > div.infors > dl')
 
