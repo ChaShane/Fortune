@@ -5,7 +5,8 @@ from fastapi.responses import JSONResponse
 from datetime import datetime #현재시간 가져오기
 import uvicorn # ASGI(Asynchronous Server Gateway Interface) 비동기 처리 라이브러리
 import requests # 웹사이트 요청 하기 위한 라이브러리
-import urllib # URI 인코딩
+import urllib 
+from urllib.request import Request as r, urlopen
 
 #FastAPI 선언
 app = FastAPI(docs_url=None,redoc_documentation_url=None,title="네이버 띠운세 API")
@@ -23,13 +24,18 @@ async def TodayFortune(unsae:Model_Request,req:Request,dte:str=Header(..., descr
             #Body 띠(beltstar)의 값을 가져온다
             body = await req.json()
             beltstar = body['beltstar']
-            ddi="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query="+beltstar+"띠%2B운세"
+            ddi="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query="+urllib.parse.quote(beltstar + "띠+운세", encoding='utf-8')
 
             print(ddi)
             #네이버 운세 웹크롤링
-            html = requests.get(ddi,headers={"User-Agent": "Mozilla/5.0"})
+            #html = requests.get(ddi,headers={"User-Agent": "Mozilla/5.0"})
+            req = r(
+                url=ddi, 
+                headers={'User-Agent': 'Mozilla/5.0'}
+            )
+            html = urlopen(req).read()
             print(html)
-            soup = bs(html.text, 'html.parser')
+            soup = bs(html, 'html.parser')
             data1 = soup.select('div.api_cs_wrap > div#yearFortune > div.infors > dl')
 
             #해당 데이터 체크
