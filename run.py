@@ -23,7 +23,7 @@ async def TodayFortune(unsae:Model_Request,req:Request,dte:str=Header(..., descr
             #Body 띠(beltstar)의 값을 가져온다
             body = await req.json()
             beltstar = body['beltstar']
-            ddi="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query="+urllib.parse.quote(beltstar+"띠+운세")
+            ddi="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query="+beltstar+"띠+운세"
 
             print(ddi)
             #네이버 운세 웹크롤링
