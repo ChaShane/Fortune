@@ -23,11 +23,11 @@ async def TodayFortune(unsae:Model_Request,req:Request,dte:str=Header(..., descr
             #Body 띠(beltstar)의 값을 가져온다
             body = await req.json()
             beltstar = body['beltstar']
-            ddi="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query="+beltstar+"띠+운세"
+            ddi="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query="+beltstar+"띠%2B운세"
 
             print(ddi)
             #네이버 운세 웹크롤링
-            html = requests.get(ddi)
+            html = requests.get(ddi,headers={"User-Agent": "Mozilla/5.0"})
             print(html)
             soup = bs(html.text, 'html.parser')
             data1 = soup.select('div.api_cs_wrap > div#yearFortune > div.infors > dl')
