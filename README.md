@@ -64,6 +64,17 @@
        </tbody>
      </table>
      <p>
+      <b>* 예제</b>
+     <table>
+       <tbody>
+         <tr>
+           <td>
+           curl -d "{\"beltstar\": \"용\"}" -H "Content-Type: application/json" -H "dte: 20230901" <br>-X POST https://port-0-fortuneapi-6w1j2alm041d5v.sel5.cloudtype.app/todayfortune
+           </td>
+         </tr>
+       </tbody>
+     </table>   
+     <p>
      - API 가이드 
       <br>&nbsp;&nbsp;&nbsp;https://port-0-fortuneapi-6w1j2alm041d5v.sel5.cloudtype.app/redoc
      
